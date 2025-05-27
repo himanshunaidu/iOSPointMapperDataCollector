@@ -1,0 +1,48 @@
+# Xcode
+*.xcuserstate
+*.xcworkspace/xcuserdata/
+DerivedData/
+build/
+
+# Swift Package Manager
+.build/
+Packages/
+Package.pins
+Package.resolved
+.swiftpm/
+.xcodeproj/project.xcworkspace/xcuserdata
+
+# CocoaPods
+Pods/
+Podfile.lock
+
+# Archives
+*.xcarchive
+
+# Certificates
+*.cer
+*.mobileprovision
+*.pem
+*.p12
+
+# Logs
+*.log
+
+# Temporary files
+*.swp
+*.tmp
+*.orig
+
+# User settings
+*.xcuserdata/
+*.moved-aside
+*.xcuserstate
+
+# macOS system files
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# IDE folders
+.idea/
+.vscode/
