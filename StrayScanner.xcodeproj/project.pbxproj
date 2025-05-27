@@ -34,7 +34,6 @@
 		3863FE6C25FCBB0E00C1DA4F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 385999BE25616F2B00F3F681 /* SceneDelegate.swift */; };
 		3863FE6E25FCBB0E00C1DA4F /* Recording+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38C17B11259BE1DA006B3FDA /* Recording+CoreDataProperties.swift */; };
 		3863FE6F25FCBB0E00C1DA4F /* Recording+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38C17B10259BE1DA006B3FDA /* Recording+CoreDataClass.swift */; };
-		3863FE7425FCBB0E00C1DA4F /* Pods_StrayScanner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBC054EDDA47FB8A717AA671 /* Pods_StrayScanner.framework */; };
 		3863FE7625FCBB0E00C1DA4F /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3872B88825962BBA00A3370C /* Colors.xcassets */; };
 		3863FE7725FCBB0E00C1DA4F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 385999CA25616F3000F3F681 /* LaunchScreen.storyboard */; };
 		3863FE7825FCBB0E00C1DA4F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 385999C825616F3000F3F681 /* Preview Assets.xcassets */; };
@@ -66,6 +65,7 @@
 		38E969CB2572608E00054CC4 /* NewSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38E969CA2572608E00054CC4 /* NewSession.swift */; };
 		38FB730F2572A9FA007D9CB0 /* RecordSessionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FB730E2572A9FA007D9CB0 /* RecordSessionViewController.swift */; };
 		38FB73162572AF63007D9CB0 /* Shaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = 38FB73152572AF63007D9CB0 /* Shaders.metal */; };
+		5835FF1AC2638DCB6F1F33FE /* Pods_StrayScanner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBC054EDDA47FB8A717AA671 /* Pods_StrayScanner.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,7 +79,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		09A6D95A8151C51C3ECF4131 /* Pods-StrayScanner.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StrayScanner.release.xcconfig"; path = "Target Support Files/Pods-StrayScanner/Pods-StrayScanner.release.xcconfig"; sourceTree = "<group>"; };
 		38045D572561A7370004F23C /* SessionRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionRow.swift; sourceTree = "<group>"; };
 		38045D592561AC000004F23C /* SessionList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionList.swift; sourceTree = "<group>"; };
 		3807420A27BBCE83003194C1 /* PngEncoder.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = PngEncoder.mm; sourceTree = "<group>"; };
@@ -119,7 +118,8 @@
 		38FB73152572AF63007D9CB0 /* Shaders.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = Shaders.metal; sourceTree = "<group>"; };
 		38FB731F2573EABB007D9CB0 /* ShaderTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShaderTypes.h; sourceTree = "<group>"; };
 		38FB73242573ECE2007D9CB0 /* BridgeHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = BridgeHeader.h; path = StrayScanner/BridgeHeader.h; sourceTree = "<group>"; };
-		AC52749A3B5AED09C9753120 /* Pods-StrayScanner.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StrayScanner.debug.xcconfig"; path = "Target Support Files/Pods-StrayScanner/Pods-StrayScanner.debug.xcconfig"; sourceTree = "<group>"; };
+		520A4B779913036C807E7BE0 /* Pods-StrayScanner.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StrayScanner.release.xcconfig"; path = "Target Support Files/Pods-StrayScanner/Pods-StrayScanner.release.xcconfig"; sourceTree = "<group>"; };
+		6F2C5C0F08B9A879D9838E9F /* Pods-StrayScanner.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StrayScanner.debug.xcconfig"; path = "Target Support Files/Pods-StrayScanner/Pods-StrayScanner.debug.xcconfig"; sourceTree = "<group>"; };
 		DBC054EDDA47FB8A717AA671 /* Pods_StrayScanner.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StrayScanner.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -129,6 +129,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				24B9204E08E8610D3CB4F2CB /* Pods_StrayScanner.framework in Frameworks */,
+				5835FF1AC2638DCB6F1F33FE /* Pods_StrayScanner.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -136,7 +137,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3863FE7425FCBB0E00C1DA4F /* Pods_StrayScanner.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -153,8 +153,8 @@
 		0905A155A958CE7B22575DF5 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				AC52749A3B5AED09C9753120 /* Pods-StrayScanner.debug.xcconfig */,
-				09A6D95A8151C51C3ECF4131 /* Pods-StrayScanner.release.xcconfig */,
+				6F2C5C0F08B9A879D9838E9F /* Pods-StrayScanner.debug.xcconfig */,
+				520A4B779913036C807E7BE0 /* Pods-StrayScanner.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -335,7 +335,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3863FE7B25FCBB0E00C1DA4F /* Build configuration list for PBXNativeTarget "StrayScanner debug" */;
 			buildPhases = (
-				3863FE5B25FCBB0E00C1DA4F /* [CP] Check Pods Manifest.lock */,
 				3863FE5C25FCBB0E00C1DA4F /* Sources */,
 				3863FE7325FCBB0E00C1DA4F /* Frameworks */,
 				3863FE7525FCBB0E00C1DA4F /* Resources */,
@@ -442,28 +441,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		3863FE5B25FCBB0E00C1DA4F /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-StrayScanner-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
 		4DB8A597843EA39DA438F658 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -699,14 +676,14 @@
 		};
 		385999DC25616F3100F3F681 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = AC52749A3B5AED09C9753120 /* Pods-StrayScanner.debug.xcconfig */;
+			baseConfigurationReference = 6F2C5C0F08B9A879D9838E9F /* Pods-StrayScanner.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"StrayScanner/Preview Content\"";
-				DEVELOPMENT_TEAM = 994C2WLGU3;
+				DEVELOPMENT_TEAM = UB6LB27Z2X;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = StrayScanner/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
@@ -715,7 +692,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.4;
-				PRODUCT_BUNDLE_IDENTIFIER = dev.keke.StrayScanner;
+				PRODUCT_BUNDLE_IDENTIFIER = edu.uw.kohmatsu9;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = StrayScanner/BridgeHeader.h;
@@ -726,14 +703,14 @@
 		};
 		385999DD25616F3100F3F681 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 09A6D95A8151C51C3ECF4131 /* Pods-StrayScanner.release.xcconfig */;
+			baseConfigurationReference = 520A4B779913036C807E7BE0 /* Pods-StrayScanner.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"StrayScanner/Preview Content\"";
-				DEVELOPMENT_TEAM = 994C2WLGU3;
+				DEVELOPMENT_TEAM = UB6LB27Z2X;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = StrayScanner/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
@@ -742,7 +719,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.4;
-				PRODUCT_BUNDLE_IDENTIFIER = dev.keke.StrayScanner;
+				PRODUCT_BUNDLE_IDENTIFIER = edu.uw.kohmatsu9;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = StrayScanner/BridgeHeader.h;
@@ -753,7 +730,6 @@
 		};
 		3863FE7C25FCBB0E00C1DA4F /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = AC52749A3B5AED09C9753120 /* Pods-StrayScanner.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -779,7 +755,6 @@
 		};
 		3863FE7D25FCBB0E00C1DA4F /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 09A6D95A8151C51C3ECF4131 /* Pods-StrayScanner.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
