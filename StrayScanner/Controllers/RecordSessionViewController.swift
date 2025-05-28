@@ -12,6 +12,7 @@ import Metal
 import ARKit
 import CoreData
 import CoreMotion
+import CoreLocation
 
 let FpsDividers: [Int] = [1, 2, 4, 12, 60]
 let AvailableFpsSettings: [Int] = FpsDividers.map { Int(60 / $0) }
@@ -28,11 +29,12 @@ class MetalView : UIView {
     }
 }
 
-class RecordSessionViewController : UIViewController, ARSessionDelegate {
+class RecordSessionViewController : UIViewController, ARSessionDelegate, CLLocationManagerDelegate {
     private var unsupported: Bool = false
     private var arConfiguration: ARWorldTrackingConfiguration?
     private let session = ARSession()
     private let motionManager = CMMotionManager()
+    private let locationManager = CLLocationManager()
     private var renderer: CameraRenderer?
     private var updateLabelTimer: Timer?
     private var startedRecording: Date?
@@ -143,6 +145,91 @@ class RecordSessionViewController : UIViewController, ARSessionDelegate {
         }
     }
     
+    private func startLocationUpdates() {
+        self.locationManager.delegate = self
+        
+        switch locationManager.accuracyAuthorization {
+            case .fullAccuracy:
+                print("Location manager has full accuracy authorization.")
+            case .reducedAccuracy:
+                print("Location manager has reduced accuracy authorization.")
+            @unknown default:
+                print("Location manager has unknown accuracy authorization.")
+        }
+        self.locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
+        locationManager.distanceFilter = kCLDistanceFilterNone
+        locationManager.pausesLocationUpdatesAutomatically = false // Prevent auto-pausing
+        self.locationManager.requestWhenInUseAuthorization()
+        
+        locationManager.startUpdatingLocation()
+        if CLLocationManager.headingAvailable() {
+            locationManager.headingFilter = kCLHeadingFilterNone
+            locationManager.startUpdatingHeading()
+        }
+    }
+    
+    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        switch manager.authorizationStatus {
+        case .authorizedWhenInUse, .authorizedAlways:
+            manager.startUpdatingLocation()
+            manager.startUpdatingHeading()
+        case .notDetermined:
+            manager.requestWhenInUseAuthorization()
+        default:
+            // Handle denied/restricted state appropriately
+            break
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let location = locations.last else { return }
+        
+        let locationData: LocationData = LocationData(
+            timestamp: location.timestamp,
+            latitude: location.coordinate.latitude,
+            longitude: location.coordinate.longitude,
+            altitude: location.altitude,
+            horizontalAccuracy: location.horizontalAccuracy,
+            verticalAccuracy: location.verticalAccuracy,
+            speed: location.speed,
+            course: location.course,
+            floorLevel: location.floor?.level ?? -1
+        )
+        datasetEncoder?.addLocation(data: locationData)
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
+        guard newHeading.headingAccuracy >= 0 else {
+            print("Heading update received with invalid accuracy.")
+            return
+        }
+        
+        let headingData: HeadingData = HeadingData(
+            timestamp: newHeading.timestamp,
+            magneticHeading: newHeading.magneticHeading,
+            trueHeading: newHeading.trueHeading,
+            headingAccuracy: newHeading.headingAccuracy
+        )
+        datasetEncoder?.addHeading(data: headingData)
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print("Location update failed with error: \(error.localizedDescription)")
+    }
+    
+    private func stopLocationUpdates() {
+        locationManager.stopUpdatingLocation()
+        print("Stopped location updates.")
+        
+        if CLLocationManager.headingAvailable() {
+            locationManager.stopUpdatingHeading()
+            print("Stopped heading updates.")
+        }
+
+        // Optional: unset delegate if you're done with it
+        locationManager.delegate = nil
+    }
+    
     private func toggleRecording(_ recording: Bool) {
         if unsupported {
             showUnsupportedAlert()
@@ -164,6 +251,7 @@ class RecordSessionViewController : UIViewController, ARSessionDelegate {
             self.updateTime()
         }
         startRawIMU()
+        startLocationUpdates()
         datasetEncoder = DatasetEncoder(arConfiguration: arConfiguration!, fpsDivider: FpsDividers[chosenFpsSetting])
         startRawIMU()
     }

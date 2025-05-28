@@ -26,6 +26,10 @@
 	<true/>
 	<key>NSCameraUsageDescription</key>
 	<string>For recording datasets.</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>For recording location even if the app gets into the background</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>For recording location</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

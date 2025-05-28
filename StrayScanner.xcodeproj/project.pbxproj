@@ -66,6 +66,8 @@
 		38FB730F2572A9FA007D9CB0 /* RecordSessionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FB730E2572A9FA007D9CB0 /* RecordSessionViewController.swift */; };
 		38FB73162572AF63007D9CB0 /* Shaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = 38FB73152572AF63007D9CB0 /* Shaders.metal */; };
 		5835FF1AC2638DCB6F1F33FE /* Pods_StrayScanner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBC054EDDA47FB8A717AA671 /* Pods_StrayScanner.framework */; };
+		A3FFAA852DE79A2F002B99BD /* LocationEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3FFAA842DE79A2B002B99BD /* LocationEncoder.swift */; };
+		A3FFAA862DE79A2F002B99BD /* LocationEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3FFAA842DE79A2B002B99BD /* LocationEncoder.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -120,6 +122,7 @@
 		38FB73242573ECE2007D9CB0 /* BridgeHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = BridgeHeader.h; path = StrayScanner/BridgeHeader.h; sourceTree = "<group>"; };
 		520A4B779913036C807E7BE0 /* Pods-StrayScanner.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StrayScanner.release.xcconfig"; path = "Target Support Files/Pods-StrayScanner/Pods-StrayScanner.release.xcconfig"; sourceTree = "<group>"; };
 		6F2C5C0F08B9A879D9838E9F /* Pods-StrayScanner.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StrayScanner.debug.xcconfig"; path = "Target Support Files/Pods-StrayScanner/Pods-StrayScanner.debug.xcconfig"; sourceTree = "<group>"; };
+		A3FFAA842DE79A2B002B99BD /* LocationEncoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationEncoder.swift; sourceTree = "<group>"; };
 		DBC054EDDA47FB8A717AA671 /* Pods_StrayScanner.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StrayScanner.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -244,6 +247,7 @@
 		38694C6B26D2C66F00546EA1 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				A3FFAA842DE79A2B002B99BD /* LocationEncoder.swift */,
 				38694C6C26D2C66F00546EA1 /* DatasetEncoder.swift */,
 				38694C6D26D2C66F00546EA1 /* ConfidenceEncoder.swift */,
 				38694C6E26D2C66F00546EA1 /* VideoEncoder.swift */,
@@ -479,6 +483,7 @@
 				38045D582561A7370004F23C /* SessionRow.swift in Sources */,
 				38694C7426D2C66F00546EA1 /* DatasetEncoder.swift in Sources */,
 				3807420B27BBCE83003194C1 /* PngEncoder.mm in Sources */,
+				A3FFAA852DE79A2F002B99BD /* LocationEncoder.swift in Sources */,
 				38694C7C26D2C66F00546EA1 /* CameraRenderer.swift in Sources */,
 				38694C7A26D2C66F00546EA1 /* IMUEncoder.swift in Sources */,
 				38FB73162572AF63007D9CB0 /* Shaders.metal in Sources */,
@@ -509,6 +514,7 @@
 				3863FE6325FCBB0E00C1DA4F /* SessionRow.swift in Sources */,
 				38694C7526D2C66F00546EA1 /* DatasetEncoder.swift in Sources */,
 				38694C7D26D2C66F00546EA1 /* CameraRenderer.swift in Sources */,
+				A3FFAA862DE79A2F002B99BD /* LocationEncoder.swift in Sources */,
 				38694C7B26D2C66F00546EA1 /* IMUEncoder.swift in Sources */,
 				3863FE6425FCBB0E00C1DA4F /* Shaders.metal in Sources */,
 				3863FE6525FCBB0E00C1DA4F /* AppDelegate.swift in Sources */,
