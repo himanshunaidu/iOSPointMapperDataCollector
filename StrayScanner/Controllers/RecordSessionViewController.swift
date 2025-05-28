@@ -219,9 +219,11 @@ class RecordSessionViewController : UIViewController, ARSessionDelegate, CLLocat
     
     private func stopLocationUpdates() {
         locationManager.stopUpdatingLocation()
+        print("Stopped location updates.")
         
         if CLLocationManager.headingAvailable() {
             locationManager.stopUpdatingHeading()
+            print("Stopped heading updates.")
         }
 
         // Optional: unset delegate if you're done with it

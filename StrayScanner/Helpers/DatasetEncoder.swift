@@ -24,6 +24,8 @@ class DatasetEncoder {
     private let datasetDirectory: URL
     private let odometryEncoder: OdometryEncoder
     private let imuEncoder: IMUEncoder
+    private let locationEncoder: LocationEncoder
+    private let headingEncoder: HeadingEncoder
     private var lastFrame: ARFrame?
     private var dispatchGroup = DispatchGroup()
     private var currentFrame: Int = -1
@@ -35,12 +37,16 @@ class DatasetEncoder {
     public let cameraMatrixPath: URL
     public let odometryPath: URL
     public let imuPath: URL
+    public let locationPath: URL
+    public let headingPath: URL
     public var status = Status.allGood
     private let queue: DispatchQueue
     
     private var latestAccelerometerData: (timestamp: Double, data: simd_double3)?
     private var latestGyroscopeData: (timestamp: Double, data: simd_double3)?
-
+    
+    private var lastLocationTimestamp: Date?
+    private var lastHeadingTimestamp: Date?
 
     init(arConfiguration: ARWorldTrackingConfiguration, fpsDivider: Int = 1) {
         self.frameInterval = fpsDivider
@@ -62,6 +68,10 @@ class DatasetEncoder {
         self.odometryEncoder = OdometryEncoder(url: self.odometryPath)
         self.imuPath = datasetDirectory.appendingPathComponent("imu.csv", isDirectory: false)
         self.imuEncoder = IMUEncoder(url: self.imuPath)
+        self.locationPath = datasetDirectory.appendingPathComponent("location.csv", isDirectory: false)
+        self.locationEncoder = LocationEncoder(url: self.locationPath)
+        self.headingPath = datasetDirectory.appendingPathComponent("heading.csv", isDirectory: false)
+        self.headingEncoder = HeadingEncoder(url: self.headingPath)
     }
 
     func add(frame: ARFrame) {
@@ -104,11 +114,11 @@ class DatasetEncoder {
     }
     
     func addLocation(data: LocationData) {
-        // Not implemented yet.
+        locationEncoder.add(locationData: data)
     }
     
     func addHeading(data: HeadingData) {
-        // Not implemented yet.
+        headingEncoder.add(headingData: data)
     }
 
     private func tryWritingIMUData() {
