@@ -10,6 +10,7 @@ import Foundation
 import ARKit
 import CryptoKit
 import CoreMotion
+import CoreLocation
 
 class DatasetEncoder {
     enum Status {
@@ -100,6 +101,14 @@ class DatasetEncoder {
         let rotationRate = simd_double3(data.rotationRate.x, data.rotationRate.y, data.rotationRate.z)
         latestGyroscopeData = (timestamp: data.timestamp, data: rotationRate)
         tryWritingIMUData()
+    }
+    
+    func addLocation(data: LocationData) {
+        // Not implemented yet.
+    }
+    
+    func addHeading(data: HeadingData) {
+        // Not implemented yet.
     }
 
     private func tryWritingIMUData() {
