@@ -20,7 +20,7 @@ struct InformationView: View {
                     .fontWeight(.bold)
                 Group {
                 bodyText("""
-This app lets you record video and depth datasets using the camera and LIDAR scanner.
+This app lets you record video, depth and location datasets using the camera and LIDAR scanner.
 """)
 
                 heading("Transfering Datasets To Your Desktop Computer")
@@ -42,7 +42,7 @@ Alternatively, you can access the data in the Files app under "Browse > On My iP
                 bodyText("To report bugs, please open an issue on the Github project. Contributions are more than welcome.")
                     
                 link(text: "Github project", destination:
-                    "https://github.com/StrayRobots/scanner")
+                    "https://github.com/himanshunaidu/iOSPointMapperDataCollector")
 
                 }
                 Group {
