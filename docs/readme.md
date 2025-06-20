@@ -10,6 +10,7 @@ The recorded datasets contain:
 - camera position estimates for each frame
 - camera calibration matrix
 - IMU measurements
+- GPS location and heading
 
 The datasets can be exported using the instructions found [here](/docs/export.md).
 

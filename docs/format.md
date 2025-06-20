@@ -9,6 +9,8 @@ The collected datasets are each contained in a folder, named after a random hash
 camera_matrix.csv
 odometry.csv
 imu.csv
+location.csv
+heading.csv
 depth/
   - 000000.png
   - 000001.png
