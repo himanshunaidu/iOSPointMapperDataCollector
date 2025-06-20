@@ -23,7 +23,7 @@ If you want to contribute code, you can simply open a pull request.
 
 ### Data Collection
 
-For those who are interested in contributing to the data collection process, we are looking for people to collect datasets in different environments. Currently, the data collection process is limited to internal testers, but we are open to expanding this to a wider audience.
+For those who are interested in contributing to the data collection process, we are looking for people to collect datasets in different environments. Currently, the data collection process is limited to internal testers.
 
 Interested users can fill out the [data collection form](https://docs.google.com/forms/d/e/1FAIpQLSe2Gw7Qgu1la_OJWtQcAFfDqocbEY4j7AkWr6lHDR61R6cWTg/viewform?usp=sharing&ouid=103118848359479903201)\
 We will then reach out to you, and if approved, add you to the internal testing group and provide instructions on how to collect data using the app.
