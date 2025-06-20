@@ -1,6 +1,6 @@
 # Privacy Policy
 
-This app, Stray Scanner, does not collect, use, save, or share any personal data.
+This app, iOSPointMapperDataCollector, does not collect, use, save, or share any personal data.
 
 We do not collect any user information, location data, or other personal information.
 
