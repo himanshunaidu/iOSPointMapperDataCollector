@@ -56,3 +56,24 @@ The `imu.csv` file contains timestamps, linear acceleration readings and angular
 | alpha\_y | Rotation in rad/s around the y-axis |
 | alpha\_z | Rotation in rad/s around the z-axis |
 
+The `location.csv` file contains the GPS location of the device at each frame. The first line is a header. The meaning of the fields are:
+| Field | <div style="width: 500px">Meaning</div> |
+|---|---|
+| timestamp | Timestamp in seconds |
+| latitude | Latitude in degrees |
+| longitude | Longitude in degrees |
+| altitude | Altitude in meters |
+| horizontal_accuracy | Horizontal accuracy |
+| vertical_accuracy | Vertical accuracy |
+| speed | Speed in m/s |
+| course | Course in degrees |
+| floor_level | Floor level, 0 for ground floor, 1 for first floor, etc. |
+
+<!--timestamp, magnetic_heading, true_heading, heading_accuracy-->
+The `heading.csv` file contains the heading of the device at each frame. The first line is a header. The meaning of the fields are:
+| Field | <div style="width: 500px">Meaning</div> |
+|---|---|
+| timestamp | Timestamp in seconds |
+| magnetic_heading | Magnetic heading in degrees |
+| true_heading | True heading in degrees |
+| heading_accuracy | Heading accuracy in degrees |
