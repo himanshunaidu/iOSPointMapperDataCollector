@@ -26,7 +26,6 @@ class OdometryEncoder {
             print("Can't create file \(self.path.absoluteString). \(error.localizedDescription)")
             preconditionFailure("Can't open odometry file for writing.")
         }
-        
     }
 
     func add(frame: ARFrame, currentFrame: Int) {

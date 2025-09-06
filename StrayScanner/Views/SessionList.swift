@@ -43,9 +43,37 @@ class SessionListViewModel: ObservableObject {
 
 }
 
+enum RecordButtonPosition: String, CaseIterable, Identifiable {
+//    case bottomRight = "Bottom Right"
+//    case bottomLeft = "Bottom Left"
+//    case topRight = "Top Right"
+//    case topLeft = "Top Left"
+    case bottomCenter = "Bottom Center"
+    case topCenter = "Top Center"
+    
+    var id: String { self.rawValue }
+}
+
+
+
+class SettingsViewModel: ObservableObject {
+    @Published var recordButtonPosition: RecordButtonPosition {
+        didSet {
+            UserDefaults.standard.set(recordButtonPosition.rawValue, forKey: "recordButtonPosition")
+        }
+    }
+    
+    init() {
+        let savedPosition = UserDefaults.standard.string(forKey: "recordButtonPosition") ?? RecordButtonPosition.bottomCenter.rawValue
+        recordButtonPosition = RecordButtonPosition(rawValue: savedPosition) ?? .bottomCenter
+    }
+}
+
 struct SessionList: View {
     @ObservedObject var viewModel = SessionListViewModel()
+    @ObservedObject var settingsViewModel = SettingsViewModel()
     @State private var showingInfo = false
+    @State private var showingSettings = false
 
     init() {
         UITableView.appearance().backgroundColor = UIColor(named: "BackgroundColor")
@@ -65,6 +93,18 @@ struct SessionList: View {
                         .multilineTextAlignment(.center)
                         .padding([.top, .leading], 15.0)
                     Spacer()
+                    Button(action: {
+                        showingSettings.toggle()
+                    }, label: {
+                        Image(systemName: "gear")
+                            .resizable()
+                            .frame(width: 25, height: 25, alignment: .center)
+                            .padding(.top, 17)
+                            .padding(.trailing, 10)
+                            .foregroundColor(Color("TextColor"))
+                    }).sheet(isPresented: $showingSettings) {
+                        SettingsView()//.environmentObject(settingsViewModel)
+                    }
                     Button(action: {
                         showingInfo.toggle()
                     }, label: {
@@ -128,11 +168,12 @@ struct SessionList: View {
         }
         .background(Color("BackgroundColor").edgesIgnoringSafeArea(.all))
         }
+        .environmentObject(settingsViewModel)
     }
 }
 
-struct SessionList_Previews: PreviewProvider {
-    static var previews: some View {
-        SessionList()
-    }
-}
+//struct SessionList_Previews: PreviewProvider {
+//    static var previews: some View {
+//        SessionList()
+//    }
+//}
