@@ -103,7 +103,7 @@ struct SessionList: View {
                             .padding(.trailing, 10)
                             .foregroundColor(Color("TextColor"))
                     }).sheet(isPresented: $showingSettings) {
-                        SettingsView()//.environmentObject(settingsViewModel)
+                        SettingsView().environmentObject(settingsViewModel)
                     }
                     Button(action: {
                         showingInfo.toggle()
@@ -168,7 +168,6 @@ struct SessionList: View {
         }
         .background(Color("BackgroundColor").edgesIgnoringSafeArea(.all))
         }
-        .environmentObject(settingsViewModel)
     }
 }
 

@@ -49,6 +49,8 @@ class RecordSessionViewController : UIViewController, ARSessionDelegate, CLLocat
     @IBOutlet weak var fpsButton: UIButton!
     var dismissFunction: Optional<() -> Void> = Optional.none
     
+    var recordButtonPosition: RecordButtonPosition = RecordButtonPosition(rawValue: UserDefaults.standard.string(forKey: "recordButtonPosition") ?? RecordButtonPosition.bottomCenter.rawValue) ?? .bottomCenter
+    
     func setDismissFunction(_ fn: Optional<() -> Void>) {
         self.dismissFunction = fn
     }
