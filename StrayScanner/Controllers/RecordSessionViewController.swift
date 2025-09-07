@@ -47,7 +47,12 @@ class RecordSessionViewController : UIViewController, ARSessionDelegate, CLLocat
     @IBOutlet private var recordButton: RecordButton!
     @IBOutlet private var timeLabel: UILabel!
     @IBOutlet weak var fpsButton: UIButton!
+    @IBOutlet weak var stackView: UIStackView!
+    @IBOutlet weak var imageView: UIView!
+    @IBOutlet weak var controlsView: UIView!
     var dismissFunction: Optional<() -> Void> = Optional.none
+    
+    var controlsPosition: ControlsPosition = ControlsPosition(rawValue: UserDefaults.standard.string(forKey: "controlsPosition") ?? ControlsPosition.bottomCenter.rawValue) ?? .bottomCenter
     
     func setDismissFunction(_ fn: Optional<() -> Void>) {
         self.dismissFunction = fn
@@ -61,6 +66,8 @@ class RecordSessionViewController : UIViewController, ARSessionDelegate, CLLocat
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
         self.dataContext = appDelegate.persistentContainer.newBackgroundContext()
         self.renderer = CameraRenderer(rgbLayer: rgbView.layer, depthLayer: depthView.layer)
+        
+        self.arrangeUI()
 
         depthView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(viewTapped)))
         rgbView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(viewTapped)))
@@ -88,6 +95,25 @@ class RecordSessionViewController : UIViewController, ARSessionDelegate, CLLocat
 
     override func viewDidAppear(_ animated: Bool) {
         startSession()
+    }
+    
+    private func arrangeUI() {
+        guard let s = stackView,
+              let imageView = imageView,
+              let controlsView = controlsView
+        else { return }
+        s.removeArrangedSubview(imageView)
+        s.removeArrangedSubview(controlsView)
+        switch controlsPosition {
+            case .bottomCenter:
+                s.addArrangedSubview(imageView)
+                s.addArrangedSubview(controlsView)
+            return
+            case .topCenter:
+                s.addArrangedSubview(controlsView)
+                s.addArrangedSubview(imageView)
+            return
+        }
     }
 
     private func startSession() {

@@ -23,6 +23,7 @@ struct NavigationConfigurator: UIViewControllerRepresentable {
 
 struct RecordSessionManager: UIViewControllerRepresentable {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+//    @EnvironmentObject var settingsViewModel: SettingsViewModel
     
     func makeUIViewController(context: Context) -> some UIViewController {
         let viewController = RecordSessionViewController(nibName: "RecordSessionView", bundle: nil)
