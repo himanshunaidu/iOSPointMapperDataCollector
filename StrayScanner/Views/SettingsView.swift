@@ -26,12 +26,12 @@ struct SettingsView: View {
                     heading("UI Settings")
                         
                     HStack {
-                        bodyText("Record Button Position")
+                        bodyText("Controls Position")
                         
                         Spacer()
                         
-                        Picker("Select Position", selection: $settingsViewModel.recordButtonPosition) {
-                            ForEach(RecordButtonPosition.allCases, id: \.self) { position in
+                        Picker("Select Position", selection: $settingsViewModel.controlsPosition) {
+                            ForEach(ControlsPosition.allCases, id: \.self) { position in
                                 Text(position.rawValue).tag(position)
                             }
                         }

@@ -43,7 +43,7 @@ class SessionListViewModel: ObservableObject {
 
 }
 
-enum RecordButtonPosition: String, CaseIterable, Identifiable {
+enum ControlsPosition: String, CaseIterable, Identifiable {
 //    case bottomRight = "Bottom Right"
 //    case bottomLeft = "Bottom Left"
 //    case topRight = "Top Right"
@@ -57,15 +57,15 @@ enum RecordButtonPosition: String, CaseIterable, Identifiable {
 
 
 class SettingsViewModel: ObservableObject {
-    @Published var recordButtonPosition: RecordButtonPosition {
+    @Published var controlsPosition: ControlsPosition {
         didSet {
-            UserDefaults.standard.set(recordButtonPosition.rawValue, forKey: "recordButtonPosition")
+            UserDefaults.standard.set(controlsPosition.rawValue, forKey: "controlsPosition")
         }
     }
     
     init() {
-        let savedPosition = UserDefaults.standard.string(forKey: "recordButtonPosition") ?? RecordButtonPosition.bottomCenter.rawValue
-        recordButtonPosition = RecordButtonPosition(rawValue: savedPosition) ?? .bottomCenter
+        let savedPosition = UserDefaults.standard.string(forKey: "controlsPosition") ?? ControlsPosition.bottomCenter.rawValue
+        controlsPosition = ControlsPosition(rawValue: savedPosition) ?? .bottomCenter
     }
 }
 

@@ -76,9 +76,9 @@
                         </view>
                     </subviews>
                     <viewLayoutGuide key="safeArea" id="Y0V-jC-03c"/>
-                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <color key="backgroundColor" name="BackgroundColor"/>
                     <constraints>
-                        <constraint firstItem="PMf-7V-nwy" firstAttribute="top" secondItem="CMJ-GH-yro" secondAttribute="top" id="6rZ-dI-DSo"/>
+                        <constraint firstItem="PMf-7V-nwy" firstAttribute="top" secondItem="Y0V-jC-03c" secondAttribute="top" id="5ME-xb-gka"/>
                         <constraint firstItem="N8t-XW-UtR" firstAttribute="trailing" secondItem="Y0V-jC-03c" secondAttribute="trailing" id="7KW-8G-FlA"/>
                         <constraint firstItem="N8t-XW-UtR" firstAttribute="height" secondItem="PMf-7V-nwy" secondAttribute="height" id="DB5-Bx-cZQ"/>
                         <constraint firstItem="PMf-7V-nwy" firstAttribute="leading" secondItem="Y0V-jC-03c" secondAttribute="leading" id="DEJ-DK-lrI"/>
