@@ -10,16 +10,16 @@ import UIKit
 
 @IBDesignable
 class CountdownLabel : UILabel {
-    @IBInspectable var topInset: CGFloat = 0
-    @IBInspectable var bottomInset: CGFloat = 0
-    @IBInspectable var leftInset: CGFloat = 0
-    @IBInspectable var rightInset: CGFloat = 0
+    @IBInspectable var topInset: CGFloat = 6
+    @IBInspectable var bottomInset: CGFloat = 6
+    @IBInspectable var leftInset: CGFloat = 12
+    @IBInspectable var rightInset: CGFloat = 12
     
-    @IBInspectable var borderWidthValue: CGFloat = 1 {
+    @IBInspectable var borderWidthValue: CGFloat = 3.0 {
         didSet { layer.borderWidth = borderWidthValue }
     }
     
-    @IBInspectable var borderColorValue: UIColor = .systemBlue {
+    @IBInspectable var borderColorValue: UIColor = UIColor(named: "DarkColor")! {
         didSet { layer.borderColor = borderColorValue.cgColor }
     }
     

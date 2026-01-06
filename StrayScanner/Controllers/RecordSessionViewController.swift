@@ -37,6 +37,7 @@ class RecordSessionViewController : UIViewController, ARSessionDelegate, CLLocat
     private let locationManager = CLLocationManager()
     private var renderer: CameraRenderer?
     private var updateLabelTimer: Timer?
+    private var countdownLabelTimer: Timer?
     private var startedRecording: Date?
     private var dataContext: NSManagedObjectContext!
     private var datasetEncoder: DatasetEncoder?
@@ -50,9 +51,11 @@ class RecordSessionViewController : UIViewController, ARSessionDelegate, CLLocat
     @IBOutlet weak var stackView: UIStackView!
     @IBOutlet weak var imageView: UIView!
     @IBOutlet weak var controlsView: UIView!
+    @IBOutlet weak var countdownLabel: CountdownLabel!
     var dismissFunction: Optional<() -> Void> = Optional.none
     
     var controlsPosition: ControlsPosition = ControlsPosition(rawValue: UserDefaults.standard.string(forKey: "controlsPosition") ?? ControlsPosition.bottomCenter.rawValue) ?? .bottomCenter
+    var meshSupport: Bool = UserDefaults.standard.bool(forKey: "meshSupport")
     
     func setDismissFunction(_ fn: Optional<() -> Void>) {
         self.dismissFunction = fn
@@ -68,6 +71,7 @@ class RecordSessionViewController : UIViewController, ARSessionDelegate, CLLocat
         self.renderer = CameraRenderer(rgbLayer: rgbView.layer, depthLayer: depthView.layer)
         
         self.arrangeUI()
+        self.checkCountdownRequired()
 
         depthView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(viewTapped)))
         rgbView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(viewTapped)))
@@ -113,6 +117,14 @@ class RecordSessionViewController : UIViewController, ARSessionDelegate, CLLocat
                 s.addArrangedSubview(controlsView)
                 s.addArrangedSubview(imageView)
             return
+        }
+    }
+    
+    private func checkCountdownRequired() {
+        if !meshSupport {
+            countdownLabel.isHidden = true
+        } else {
+            countdownLabel.isHidden = false
         }
     }
 
