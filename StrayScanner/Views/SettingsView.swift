@@ -21,7 +21,6 @@ struct SettingsView: View {
                 Text("Settings").font(.title)
                     .fontWeight(.bold)
                 Group {
-                    bodyText("Global Settings for the app.")
 
                     heading("UI Settings")
                         
