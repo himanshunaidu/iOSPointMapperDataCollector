@@ -68,6 +68,8 @@
 		5835FF1AC2638DCB6F1F33FE /* Pods_StrayScanner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBC054EDDA47FB8A717AA671 /* Pods_StrayScanner.framework */; };
 		A33A563D2F0CDE9C0028B3B1 /* MeshEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33A563C2F0CDE9A0028B3B1 /* MeshEncoder.swift */; };
 		A33A563E2F0CDE9C0028B3B1 /* MeshEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33A563C2F0CDE9A0028B3B1 /* MeshEncoder.swift */; };
+		A33A56402F0D050C0028B3B1 /* CountdownLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33A563F2F0D05070028B3B1 /* CountdownLabel.swift */; };
+		A33A56412F0D050C0028B3B1 /* CountdownLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33A563F2F0D05070028B3B1 /* CountdownLabel.swift */; };
 		A3744DA02E6CE21700FC89AD /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3744D9F2E6CE21700FC89AD /* SettingsView.swift */; };
 		A3744DA12E6CE21700FC89AD /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3744D9F2E6CE21700FC89AD /* SettingsView.swift */; };
 		A3FFAA852DE79A2F002B99BD /* LocationEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3FFAA842DE79A2B002B99BD /* LocationEncoder.swift */; };
@@ -127,6 +129,7 @@
 		520A4B779913036C807E7BE0 /* Pods-StrayScanner.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StrayScanner.release.xcconfig"; path = "Target Support Files/Pods-StrayScanner/Pods-StrayScanner.release.xcconfig"; sourceTree = "<group>"; };
 		6F2C5C0F08B9A879D9838E9F /* Pods-StrayScanner.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StrayScanner.debug.xcconfig"; path = "Target Support Files/Pods-StrayScanner/Pods-StrayScanner.debug.xcconfig"; sourceTree = "<group>"; };
 		A33A563C2F0CDE9A0028B3B1 /* MeshEncoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeshEncoder.swift; sourceTree = "<group>"; };
+		A33A563F2F0D05070028B3B1 /* CountdownLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownLabel.swift; sourceTree = "<group>"; };
 		A3744D9F2E6CE21700FC89AD /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		A3FFAA842DE79A2B002B99BD /* LocationEncoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationEncoder.swift; sourceTree = "<group>"; };
 		DBC054EDDA47FB8A717AA671 /* Pods_StrayScanner.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StrayScanner.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -188,6 +191,7 @@
 		38045D562561A6D20004F23C /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				A33A563F2F0D05070028B3B1 /* CountdownLabel.swift */,
 				38045D572561A7370004F23C /* SessionRow.swift */,
 				38045D592561AC000004F23C /* SessionList.swift */,
 				38E969CA2572608E00054CC4 /* NewSession.swift */,
@@ -498,6 +502,7 @@
 				38694C7826D2C66F00546EA1 /* VideoEncoder.swift in Sources */,
 				38045D582561A7370004F23C /* SessionRow.swift in Sources */,
 				38694C7426D2C66F00546EA1 /* DatasetEncoder.swift in Sources */,
+				A33A56402F0D050C0028B3B1 /* CountdownLabel.swift in Sources */,
 				3807420B27BBCE83003194C1 /* PngEncoder.mm in Sources */,
 				A3FFAA852DE79A2F002B99BD /* LocationEncoder.swift in Sources */,
 				38694C7C26D2C66F00546EA1 /* CameraRenderer.swift in Sources */,
@@ -531,6 +536,7 @@
 				38694C7926D2C66F00546EA1 /* VideoEncoder.swift in Sources */,
 				3863FE6325FCBB0E00C1DA4F /* SessionRow.swift in Sources */,
 				38694C7526D2C66F00546EA1 /* DatasetEncoder.swift in Sources */,
+				A33A56412F0D050C0028B3B1 /* CountdownLabel.swift in Sources */,
 				38694C7D26D2C66F00546EA1 /* CameraRenderer.swift in Sources */,
 				A3FFAA862DE79A2F002B99BD /* LocationEncoder.swift in Sources */,
 				38694C7B26D2C66F00546EA1 /* IMUEncoder.swift in Sources */,
