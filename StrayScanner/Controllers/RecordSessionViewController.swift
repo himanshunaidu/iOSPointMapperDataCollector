@@ -43,6 +43,7 @@ class RecordSessionViewController : UIViewController, ARSessionDelegate, CLLocat
     private var datasetEncoder: DatasetEncoder?
     private let imuOperationQueue = OperationQueue()
     private var chosenFpsSetting: Int = 0
+    private var countdownSeconds: Int = 10 /// No countdown if mesh support is disabled.
     @IBOutlet private var rgbView: MetalView!
     @IBOutlet private var depthView: MetalView!
     @IBOutlet private var recordButton: RecordButton!
@@ -94,6 +95,7 @@ class RecordSessionViewController : UIViewController, ARSessionDelegate, CLLocat
 
     override func viewWillDisappear(_ animated: Bool) {
         updateLabelTimer?.invalidate()
+        countdownLabelTimer?.invalidate()
         datasetEncoder = nil
     }
 
@@ -288,6 +290,11 @@ class RecordSessionViewController : UIViewController, ARSessionDelegate, CLLocat
         updateLabelTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
             self.updateTime()
         }
+        if meshSupport {
+            countdownLabelTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
+                self.coundownTime()
+            }
+        }
         startRawIMU()
         startLocationUpdates()
         datasetEncoder = DatasetEncoder(arConfiguration: arConfiguration!, fpsDivider: FpsDividers[chosenFpsSetting])
@@ -302,6 +309,8 @@ class RecordSessionViewController : UIViewController, ARSessionDelegate, CLLocat
         startedRecording = nil
         updateLabelTimer?.invalidate()
         updateLabelTimer = nil
+        countdownLabelTimer?.invalidate()
+        countdownLabelTimer = nil
         // Stop IMU updates
         stopRawIMU()
         datasetEncoder?.wrapUp()
@@ -356,6 +365,20 @@ class RecordSessionViewController : UIViewController, ARSessionDelegate, CLLocat
         let hours: Int = Int(floor(seconds / 3600))
         let roundSeconds: Int = Int(floor(seconds.truncatingRemainder(dividingBy: 60)))
         self.timeLabel.text = String(format: "%02d:%02d:%02d", hours, minutes, roundSeconds)
+    }
+    
+    private func coundownTime() {
+        guard let started = self.startedRecording else { return }
+        let seconds = Date().timeIntervalSince(started)
+        let roundSeconds: Int = Int(floor(seconds.truncatingRemainder(dividingBy: 60)))
+        let remaining = countdownSeconds - roundSeconds
+        if remaining >= 0 {
+            self.countdownLabel.text = String(format: "%02d", remaining)
+        } else {
+            /// Stop recording.
+            self.countdownLabel.text = "00"
+            self.toggleRecording(false)
+        }
     }
 
     @objc func viewTapped() {
