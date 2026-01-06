@@ -62,10 +62,17 @@ class SettingsViewModel: ObservableObject {
             UserDefaults.standard.set(controlsPosition.rawValue, forKey: "controlsPosition")
         }
     }
+    @Published var meshSupport: Bool {
+        didSet {
+            UserDefaults.standard.set(meshSupport, forKey: "meshSupport")
+        }
+    }
     
     init() {
         let savedPosition = UserDefaults.standard.string(forKey: "controlsPosition") ?? ControlsPosition.bottomCenter.rawValue
         controlsPosition = ControlsPosition(rawValue: savedPosition) ?? .bottomCenter
+        let savedMeshSupport = UserDefaults.standard.bool(forKey: "meshSupport")
+        meshSupport = savedMeshSupport
     }
 }
 

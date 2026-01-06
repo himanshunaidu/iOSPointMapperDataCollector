@@ -38,6 +38,30 @@ struct SettingsView: View {
                     
                     Spacer()
                 }
+                
+                Group {
+                    
+                    heading("Recording Settings")
+                    
+                    HStack {
+                        bodyText("Enable Mesh Support")
+                        
+                        Spacer()
+                        
+                        Toggle("", isOn: $settingsViewModel.meshSupport)
+                            .labelsHidden()
+                    }
+                    
+                    /// Warning Label
+                    if settingsViewModel.meshSupport {
+                        bodyText("""
+                            Mesh support increases battery usage.
+                            Recording will be limited to 10 seconds.
+                            """)
+                            .foregroundColor(Color.red)
+                            .font(.caption2)
+                    }
+                }
             }.padding(.all, paddingLeftRight)
             }
             .frame(minWidth: 0, maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
