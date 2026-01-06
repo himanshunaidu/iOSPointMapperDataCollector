@@ -66,6 +66,8 @@
 		38FB730F2572A9FA007D9CB0 /* RecordSessionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FB730E2572A9FA007D9CB0 /* RecordSessionViewController.swift */; };
 		38FB73162572AF63007D9CB0 /* Shaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = 38FB73152572AF63007D9CB0 /* Shaders.metal */; };
 		5835FF1AC2638DCB6F1F33FE /* Pods_StrayScanner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBC054EDDA47FB8A717AA671 /* Pods_StrayScanner.framework */; };
+		A33A563D2F0CDE9C0028B3B1 /* MeshEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33A563C2F0CDE9A0028B3B1 /* MeshEncoder.swift */; };
+		A33A563E2F0CDE9C0028B3B1 /* MeshEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33A563C2F0CDE9A0028B3B1 /* MeshEncoder.swift */; };
 		A3744DA02E6CE21700FC89AD /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3744D9F2E6CE21700FC89AD /* SettingsView.swift */; };
 		A3744DA12E6CE21700FC89AD /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3744D9F2E6CE21700FC89AD /* SettingsView.swift */; };
 		A3FFAA852DE79A2F002B99BD /* LocationEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3FFAA842DE79A2B002B99BD /* LocationEncoder.swift */; };
@@ -124,6 +126,7 @@
 		38FB73242573ECE2007D9CB0 /* BridgeHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = BridgeHeader.h; path = StrayScanner/BridgeHeader.h; sourceTree = "<group>"; };
 		520A4B779913036C807E7BE0 /* Pods-StrayScanner.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StrayScanner.release.xcconfig"; path = "Target Support Files/Pods-StrayScanner/Pods-StrayScanner.release.xcconfig"; sourceTree = "<group>"; };
 		6F2C5C0F08B9A879D9838E9F /* Pods-StrayScanner.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StrayScanner.debug.xcconfig"; path = "Target Support Files/Pods-StrayScanner/Pods-StrayScanner.debug.xcconfig"; sourceTree = "<group>"; };
+		A33A563C2F0CDE9A0028B3B1 /* MeshEncoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeshEncoder.swift; sourceTree = "<group>"; };
 		A3744D9F2E6CE21700FC89AD /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		A3FFAA842DE79A2B002B99BD /* LocationEncoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationEncoder.swift; sourceTree = "<group>"; };
 		DBC054EDDA47FB8A717AA671 /* Pods_StrayScanner.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StrayScanner.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -315,8 +318,9 @@
 		A33A563B2F0CDDC80028B3B1 /* Encoders */ = {
 			isa = PBXGroup;
 			children = (
-				A3FFAA842DE79A2B002B99BD /* LocationEncoder.swift */,
 				38694C6C26D2C66F00546EA1 /* DatasetEncoder.swift */,
+				A33A563C2F0CDE9A0028B3B1 /* MeshEncoder.swift */,
+				A3FFAA842DE79A2B002B99BD /* LocationEncoder.swift */,
 				38694C6D26D2C66F00546EA1 /* ConfidenceEncoder.swift */,
 				38694C6E26D2C66F00546EA1 /* VideoEncoder.swift */,
 				38694C6F26D2C66F00546EA1 /* IMUEncoder.swift */,
@@ -505,6 +509,7 @@
 				385999C225616F2B00F3F681 /* Stray_Scanner.xcdatamodeld in Sources */,
 				38045D5A2561AC000004F23C /* SessionList.swift in Sources */,
 				38694C8226D2C66F00546EA1 /* AppDaemon.swift in Sources */,
+				A33A563D2F0CDE9C0028B3B1 /* MeshEncoder.swift in Sources */,
 				38694C7626D2C66F00546EA1 /* ConfidenceEncoder.swift in Sources */,
 				386E277825991163007D023B /* RecordButton.swift in Sources */,
 				385999BF25616F2B00F3F681 /* SceneDelegate.swift in Sources */,
@@ -537,6 +542,7 @@
 				3863FE6925FCBB0E00C1DA4F /* SessionList.swift in Sources */,
 				38694C8326D2C66F00546EA1 /* AppDaemon.swift in Sources */,
 				38694C7726D2C66F00546EA1 /* ConfidenceEncoder.swift in Sources */,
+				A33A563E2F0CDE9C0028B3B1 /* MeshEncoder.swift in Sources */,
 				3863FE6A25FCBB0E00C1DA4F /* RecordButton.swift in Sources */,
 				3807421027BBD07D003194C1 /* PngEncoder.mm in Sources */,
 				3863FE6C25FCBB0E00C1DA4F /* SceneDelegate.swift in Sources */,
@@ -707,7 +713,7 @@
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = StrayScanner/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -739,7 +745,7 @@
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = StrayScanner/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
