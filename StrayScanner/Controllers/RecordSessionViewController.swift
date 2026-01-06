@@ -39,6 +39,7 @@ class RecordSessionViewController : UIViewController, ARSessionDelegate, CLLocat
     private var updateLabelTimer: Timer?
     private var countdownLabelTimer: Timer?
     private var startedRecording: Date?
+    private var startedMeshRecording: Date?
     private var dataContext: NSManagedObjectContext!
     private var datasetEncoder: DatasetEncoder?
     private let imuOperationQueue = OperationQueue()
@@ -123,7 +124,7 @@ class RecordSessionViewController : UIViewController, ARSessionDelegate, CLLocat
     }
     
     private func checkCountdownRequired() {
-        if !meshSupport {
+        if !meshSupport && ARWorldTrackingConfiguration.supportsSceneReconstruction(.mesh) {
             countdownLabel.isHidden = true
         } else {
             countdownLabel.isHidden = false
@@ -137,6 +138,18 @@ class RecordSessionViewController : UIViewController, ARSessionDelegate, CLLocat
             print("AR is not supported.")
             unsupported = true
             return
+        }
+        if meshSupport {
+            if !ARWorldTrackingConfiguration.supportsSceneReconstruction(.mesh) {
+                print("Mesh reconstruction is not supported.")
+                unsupported = true
+                return
+            }
+            if ARWorldTrackingConfiguration.supportsSceneReconstruction(.meshWithClassification) {
+                config.sceneReconstruction = .meshWithClassification
+            } else {
+                config.sceneReconstruction = .mesh
+            }
         }
         config.frameSemantics.insert(.sceneDepth)
         session.run(config)
@@ -290,11 +303,6 @@ class RecordSessionViewController : UIViewController, ARSessionDelegate, CLLocat
         updateLabelTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
             self.updateTime()
         }
-        if meshSupport {
-            countdownLabelTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
-                self.coundownTime()
-            }
-        }
         startRawIMU()
         startLocationUpdates()
         datasetEncoder = DatasetEncoder(arConfiguration: arConfiguration!, fpsDivider: FpsDividers[chosenFpsSetting])
@@ -307,6 +315,7 @@ class RecordSessionViewController : UIViewController, ARSessionDelegate, CLLocat
             return
         }
         startedRecording = nil
+        startedMeshRecording = nil
         updateLabelTimer?.invalidate()
         updateLabelTimer = nil
         countdownLabelTimer?.invalidate()
@@ -327,6 +336,35 @@ class RecordSessionViewController : UIViewController, ARSessionDelegate, CLLocat
             print("No dataset encoder. Something is wrong.")
         }
         self.dismissFunction?()
+    }
+    
+    private func startCountdown() {
+        if self.countdownLabelTimer != nil {
+            print("Countdown timer is already running.")
+            return
+        }
+        if self.startedMeshRecording == nil {
+            self.startedMeshRecording = Date()
+        }
+        if meshSupport && ARWorldTrackingConfiguration.supportsSceneReconstruction(.mesh) {
+            countdownLabelTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
+                self.countdownTime()
+            }
+        }
+    }
+    
+    private func countdownTime() {
+        guard let started = self.startedMeshRecording else { return }
+        let seconds = Date().timeIntervalSince(started)
+        let roundSeconds: Int = Int(floor(seconds.truncatingRemainder(dividingBy: 60)))
+        let remaining = countdownSeconds - roundSeconds
+        if remaining >= 0 {
+            self.countdownLabel.text = String(format: "%02d", remaining)
+        } else {
+            /// Stop recording.
+            self.countdownLabel.text = "00"
+            self.toggleRecording(false)
+        }
     }
 
     private func saveRecording(_ started: Date, _ encoder: DatasetEncoder) {
@@ -366,20 +404,6 @@ class RecordSessionViewController : UIViewController, ARSessionDelegate, CLLocat
         let roundSeconds: Int = Int(floor(seconds.truncatingRemainder(dividingBy: 60)))
         self.timeLabel.text = String(format: "%02d:%02d:%02d", hours, minutes, roundSeconds)
     }
-    
-    private func coundownTime() {
-        guard let started = self.startedRecording else { return }
-        let seconds = Date().timeIntervalSince(started)
-        let roundSeconds: Int = Int(floor(seconds.truncatingRemainder(dividingBy: 60)))
-        let remaining = countdownSeconds - roundSeconds
-        if remaining >= 0 {
-            self.countdownLabel.text = String(format: "%02d", remaining)
-        } else {
-            /// Stop recording.
-            self.countdownLabel.text = "00"
-            self.toggleRecording(false)
-        }
-    }
 
     @objc func viewTapped() {
         switch renderer!.renderMode {
@@ -412,10 +436,16 @@ class RecordSessionViewController : UIViewController, ARSessionDelegate, CLLocat
     }
     
     func session(_ session: ARSession, didAdd anchors: [ARAnchor]) {
-        handleMeshAnchors(anchors, updateType: .remove)
+        startCountdown()
+        handleMeshAnchors(anchors, updateType: .add)
     }
     
     func session(_ session: ARSession, didUpdate anchors: [ARAnchor]) {
+        startCountdown()
+        handleMeshAnchors(anchors, updateType: .update)
+    }
+    
+    func session(_ session: ARSession, didRemove anchors: [ARAnchor]) {
         handleMeshAnchors(anchors, updateType: .remove)
     }
 

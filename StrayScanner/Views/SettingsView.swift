@@ -58,7 +58,7 @@ struct SettingsView: View {
                     if settingsViewModel.meshSupport {
                         bodyText("""
                             Mesh support increases battery usage.
-                            Recording will be limited to 10 seconds.
+                            Session will be limited to 10 seconds of mesh recording.
                             """)
                             .foregroundColor(Color.red)
                             .font(.caption2)
