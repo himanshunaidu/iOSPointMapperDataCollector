@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import ARKit
 
 struct SettingsView: View {
     @EnvironmentObject var settingsViewModel: SettingsViewModel
@@ -51,6 +52,7 @@ struct SettingsView: View {
                         Toggle("", isOn: $settingsViewModel.meshSupport)
                             .labelsHidden()
                     }
+                    .disabled(!ARWorldTrackingConfiguration.supportsSceneReconstruction(.mesh))
                     
                     /// Warning Label
                     if settingsViewModel.meshSupport {

@@ -136,10 +136,10 @@ class RecordSessionViewController : UIViewController, ARSessionDelegate, CLLocat
         if !ARWorldTrackingConfiguration.isSupported || !ARWorldTrackingConfiguration.supportsFrameSemantics(.sceneDepth) {
             print("AR is not supported.")
             unsupported = true
-        } else {
-            config.frameSemantics.insert(.sceneDepth)
-            session.run(config)
+            return
         }
+        config.frameSemantics.insert(.sceneDepth)
+        session.run(config)
     }
     
     private func startRawIMU() {
@@ -409,6 +409,14 @@ class RecordSessionViewController : UIViewController, ARSessionDelegate, CLLocat
                 print("There is no video encoder. That can't be good.")
             }
         }
+    }
+    
+    func session(_ session: ARSession, didAdd anchors: [ARAnchor]) {
+        handleMeshAnchors(anchors, updateType: .remove)
+    }
+    
+    func session(_ session: ARSession, didUpdate anchors: [ARAnchor]) {
+        handleMeshAnchors(anchors, updateType: .remove)
     }
 
     private func setViewProperties() {

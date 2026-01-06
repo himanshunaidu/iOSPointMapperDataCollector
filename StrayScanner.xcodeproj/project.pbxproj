@@ -70,6 +70,8 @@
 		A33A563E2F0CDE9C0028B3B1 /* MeshEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33A563C2F0CDE9A0028B3B1 /* MeshEncoder.swift */; };
 		A33A56402F0D050C0028B3B1 /* CountdownLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33A563F2F0D05070028B3B1 /* CountdownLabel.swift */; };
 		A33A56412F0D050C0028B3B1 /* CountdownLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33A563F2F0D05070028B3B1 /* CountdownLabel.swift */; };
+		A33A56432F0D13E60028B3B1 /* RecordSessionViewController+Mesh.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33A56422F0D13DF0028B3B1 /* RecordSessionViewController+Mesh.swift */; };
+		A33A56442F0D13E60028B3B1 /* RecordSessionViewController+Mesh.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33A56422F0D13DF0028B3B1 /* RecordSessionViewController+Mesh.swift */; };
 		A3744DA02E6CE21700FC89AD /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3744D9F2E6CE21700FC89AD /* SettingsView.swift */; };
 		A3744DA12E6CE21700FC89AD /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3744D9F2E6CE21700FC89AD /* SettingsView.swift */; };
 		A3FFAA852DE79A2F002B99BD /* LocationEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3FFAA842DE79A2B002B99BD /* LocationEncoder.swift */; };
@@ -130,6 +132,7 @@
 		6F2C5C0F08B9A879D9838E9F /* Pods-StrayScanner.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StrayScanner.debug.xcconfig"; path = "Target Support Files/Pods-StrayScanner/Pods-StrayScanner.debug.xcconfig"; sourceTree = "<group>"; };
 		A33A563C2F0CDE9A0028B3B1 /* MeshEncoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeshEncoder.swift; sourceTree = "<group>"; };
 		A33A563F2F0D05070028B3B1 /* CountdownLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownLabel.swift; sourceTree = "<group>"; };
+		A33A56422F0D13DF0028B3B1 /* RecordSessionViewController+Mesh.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RecordSessionViewController+Mesh.swift"; sourceTree = "<group>"; };
 		A3744D9F2E6CE21700FC89AD /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		A3FFAA842DE79A2B002B99BD /* LocationEncoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationEncoder.swift; sourceTree = "<group>"; };
 		DBC054EDDA47FB8A717AA671 /* Pods_StrayScanner.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StrayScanner.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -298,6 +301,7 @@
 			isa = PBXGroup;
 			children = (
 				38FB730E2572A9FA007D9CB0 /* RecordSessionViewController.swift */,
+				A33A56422F0D13DF0028B3B1 /* RecordSessionViewController+Mesh.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -513,6 +517,7 @@
 				38C17B23259D1C80006B3FDA /* SessionDetail.swift in Sources */,
 				385999C225616F2B00F3F681 /* Stray_Scanner.xcdatamodeld in Sources */,
 				38045D5A2561AC000004F23C /* SessionList.swift in Sources */,
+				A33A56442F0D13E60028B3B1 /* RecordSessionViewController+Mesh.swift in Sources */,
 				38694C8226D2C66F00546EA1 /* AppDaemon.swift in Sources */,
 				A33A563D2F0CDE9C0028B3B1 /* MeshEncoder.swift in Sources */,
 				38694C7626D2C66F00546EA1 /* ConfidenceEncoder.swift in Sources */,
@@ -547,6 +552,7 @@
 				3863FE6825FCBB0E00C1DA4F /* Stray_Scanner.xcdatamodeld in Sources */,
 				3863FE6925FCBB0E00C1DA4F /* SessionList.swift in Sources */,
 				38694C8326D2C66F00546EA1 /* AppDaemon.swift in Sources */,
+				A33A56432F0D13E60028B3B1 /* RecordSessionViewController+Mesh.swift in Sources */,
 				38694C7726D2C66F00546EA1 /* ConfidenceEncoder.swift in Sources */,
 				A33A563E2F0CDE9C0028B3B1 /* MeshEncoder.swift in Sources */,
 				3863FE6A25FCBB0E00C1DA4F /* RecordButton.swift in Sources */,

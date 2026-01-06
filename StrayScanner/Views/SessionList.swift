@@ -8,6 +8,7 @@
 
 import SwiftUI
 import CoreData
+import ARKit
 
 class SessionListViewModel: ObservableObject {
     private var dataContext: NSManagedObjectContext?
@@ -72,7 +73,11 @@ class SettingsViewModel: ObservableObject {
         let savedPosition = UserDefaults.standard.string(forKey: "controlsPosition") ?? ControlsPosition.bottomCenter.rawValue
         controlsPosition = ControlsPosition(rawValue: savedPosition) ?? .bottomCenter
         let savedMeshSupport = UserDefaults.standard.bool(forKey: "meshSupport")
-        meshSupport = savedMeshSupport
+        if ARWorldTrackingConfiguration.supportsSceneReconstruction(.mesh) {
+            meshSupport = savedMeshSupport
+        } else {
+            meshSupport = false
+        }
     }
 }
 
