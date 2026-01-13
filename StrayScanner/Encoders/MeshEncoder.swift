@@ -56,7 +56,7 @@ class MeshEncoder {
         }
     }
 
-    func save(meshBundle: MeshBundle, frameString: String) {
+    func save(meshBundle: MeshBundle, fileName: String = "mesh") {
         var ply: String
         
         let fullEntity = meshBundle.fullEntity
@@ -69,8 +69,7 @@ class MeshEncoder {
         }
         
         do {
-            let filename = frameString
-            let path = baseDirectory.appendingPathComponent(filename, isDirectory: false).appendingPathExtension("ply")
+            let path = baseDirectory.appendingPathComponent(fileName, isDirectory: false).appendingPathExtension("ply")
             
             try ply.data(using: .utf8)?.write(to: path, options: .atomic)
         } catch {

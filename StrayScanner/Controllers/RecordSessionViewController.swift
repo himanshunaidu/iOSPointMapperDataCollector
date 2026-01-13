@@ -339,6 +339,10 @@ class RecordSessionViewController : UIViewController, ARSessionDelegate, CLLocat
     }
     
     private func startCountdown() {
+        if self.startedRecording == nil {
+            print("Not recording, no need for countdown.")
+            return
+        }
         if self.countdownLabelTimer != nil {
             print("Countdown timer is already running.")
             return
@@ -436,16 +440,25 @@ class RecordSessionViewController : UIViewController, ARSessionDelegate, CLLocat
     }
     
     func session(_ session: ARSession, didAdd anchors: [ARAnchor]) {
+        if startedRecording == nil {
+            return
+        }
         startCountdown()
         handleMeshAnchors(anchors, updateType: .add)
     }
     
     func session(_ session: ARSession, didUpdate anchors: [ARAnchor]) {
+        if startedRecording == nil {
+            return
+        }
         startCountdown()
         handleMeshAnchors(anchors, updateType: .update)
     }
     
     func session(_ session: ARSession, didRemove anchors: [ARAnchor]) {
+        if startedRecording == nil {
+            return
+        }
         handleMeshAnchors(anchors, updateType: .remove)
     }
 

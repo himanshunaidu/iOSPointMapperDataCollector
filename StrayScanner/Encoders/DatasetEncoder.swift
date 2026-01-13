@@ -26,6 +26,7 @@ class DatasetEncoder {
     private let imuEncoder: IMUEncoder
     private let locationEncoder: LocationEncoder
     private let headingEncoder: HeadingEncoder
+    private let meshEncoder: MeshEncoder
     private var lastFrame: ARFrame?
     private var dispatchGroup = DispatchGroup()
     private var currentFrame: Int = -1
@@ -39,6 +40,7 @@ class DatasetEncoder {
     public let imuPath: URL
     public let locationPath: URL
     public let headingPath: URL
+    public let meshFilePath: URL
     public var status = Status.allGood
     private let queue: DispatchQueue
     
@@ -72,6 +74,8 @@ class DatasetEncoder {
         self.locationEncoder = LocationEncoder(url: self.locationPath)
         self.headingPath = datasetDirectory.appendingPathComponent("heading.csv", isDirectory: false)
         self.headingEncoder = HeadingEncoder(url: self.headingPath)
+        self.meshFilePath = datasetDirectory.appendingPathComponent("mesh", isDirectory: true)
+        self.meshEncoder = MeshEncoder(outDirectory: self.meshFilePath)
     }
 
     func add(frame: ARFrame) {
@@ -99,6 +103,10 @@ class DatasetEncoder {
             self.dispatchGroup.leave()
         }
         savedFrames = savedFrames + 1
+    }
+    
+    func add(meshBundle: MeshBundle) {
+        meshEncoder.save(meshBundle: meshBundle)
     }
     
    func addRawAccelerometer(data: CMAccelerometerData) {
