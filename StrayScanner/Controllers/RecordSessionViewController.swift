@@ -309,7 +309,11 @@ class RecordSessionViewController : UIViewController, ARSessionDelegate, CLLocat
         }
         startRawIMU()
         startLocationUpdates()
-        datasetEncoder = DatasetEncoder(arConfiguration: arConfiguration!, fpsDivider: FpsDividers[chosenFpsSetting])
+        let meshEncoding = meshSupport && ARWorldTrackingConfiguration.supportsSceneReconstruction(.mesh)
+        datasetEncoder = DatasetEncoder(
+            arConfiguration: arConfiguration!, fpsDivider: FpsDividers[chosenFpsSetting],
+            meshEncoding: meshEncoding
+        )
         startRawIMU()
     }
 
