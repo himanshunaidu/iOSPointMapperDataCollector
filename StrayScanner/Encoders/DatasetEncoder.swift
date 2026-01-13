@@ -17,6 +17,7 @@ class DatasetEncoder {
         case allGood
         case videoEncodingError
         case directoryCreationError
+        case meshEncodingError
     }
     private let rgbEncoder: VideoEncoder
     private let depthEncoder: DepthEncoder
@@ -175,6 +176,13 @@ class DatasetEncoder {
             case .encodingError:
                 status = .videoEncodingError
                 print("Something went wrong encoding confidence values.")
+        }
+        switch self.meshEncoder.status {
+            case .ok:
+                status = .allGood
+            case .fileCreationError,.encodingError:
+                status = .meshEncodingError
+                print("Something went wrong encoding mesh.")
         }
     }
 

@@ -59,6 +59,10 @@ class RecordSessionViewController : UIViewController, ARSessionDelegate, CLLocat
     var controlsPosition: ControlsPosition = ControlsPosition(rawValue: UserDefaults.standard.string(forKey: "controlsPosition") ?? ControlsPosition.bottomCenter.rawValue) ?? .bottomCenter
     var meshSupport: Bool = UserDefaults.standard.bool(forKey: "meshSupport")
     
+    /// Mesh-related properties
+    var meshBundle: MeshBundle?
+    let updateInterval: TimeInterval = 0.033 // 30 FPS
+    
     func setDismissFunction(_ fn: Optional<() -> Void>) {
         self.dismissFunction = fn
     }
@@ -320,6 +324,12 @@ class RecordSessionViewController : UIViewController, ARSessionDelegate, CLLocat
         updateLabelTimer = nil
         countdownLabelTimer?.invalidate()
         countdownLabelTimer = nil
+        // Save Mesh if applicable
+        if meshSupport && ARWorldTrackingConfiguration.supportsSceneReconstruction(.mesh) {
+            if let meshBundle = self.meshBundle {
+                datasetEncoder?.add(meshBundle: meshBundle)
+            }
+        }
         // Stop IMU updates
         stopRawIMU()
         datasetEncoder?.wrapUp()
@@ -330,6 +340,8 @@ class RecordSessionViewController : UIViewController, ARSessionDelegate, CLLocat
                 case .videoEncodingError:
                     showError()
                 case .directoryCreationError:
+                    showError()
+                case .meshEncodingError:
                     showError()
             }
         } else {
