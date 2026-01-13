@@ -66,6 +66,12 @@
 		38FB730F2572A9FA007D9CB0 /* RecordSessionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FB730E2572A9FA007D9CB0 /* RecordSessionViewController.swift */; };
 		38FB73162572AF63007D9CB0 /* Shaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = 38FB73152572AF63007D9CB0 /* Shaders.metal */; };
 		5835FF1AC2638DCB6F1F33FE /* Pods_StrayScanner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBC054EDDA47FB8A717AA671 /* Pods_StrayScanner.framework */; };
+		A33A563D2F0CDE9C0028B3B1 /* MeshEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33A563C2F0CDE9A0028B3B1 /* MeshEncoder.swift */; };
+		A33A563E2F0CDE9C0028B3B1 /* MeshEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33A563C2F0CDE9A0028B3B1 /* MeshEncoder.swift */; };
+		A33A56402F0D050C0028B3B1 /* CountdownLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33A563F2F0D05070028B3B1 /* CountdownLabel.swift */; };
+		A33A56412F0D050C0028B3B1 /* CountdownLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33A563F2F0D05070028B3B1 /* CountdownLabel.swift */; };
+		A33A56432F0D13E60028B3B1 /* RecordSessionViewController+Mesh.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33A56422F0D13DF0028B3B1 /* RecordSessionViewController+Mesh.swift */; };
+		A33A56442F0D13E60028B3B1 /* RecordSessionViewController+Mesh.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33A56422F0D13DF0028B3B1 /* RecordSessionViewController+Mesh.swift */; };
 		A3744DA02E6CE21700FC89AD /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3744D9F2E6CE21700FC89AD /* SettingsView.swift */; };
 		A3744DA12E6CE21700FC89AD /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3744D9F2E6CE21700FC89AD /* SettingsView.swift */; };
 		A3FFAA852DE79A2F002B99BD /* LocationEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3FFAA842DE79A2B002B99BD /* LocationEncoder.swift */; };
@@ -124,6 +130,9 @@
 		38FB73242573ECE2007D9CB0 /* BridgeHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = BridgeHeader.h; path = StrayScanner/BridgeHeader.h; sourceTree = "<group>"; };
 		520A4B779913036C807E7BE0 /* Pods-StrayScanner.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StrayScanner.release.xcconfig"; path = "Target Support Files/Pods-StrayScanner/Pods-StrayScanner.release.xcconfig"; sourceTree = "<group>"; };
 		6F2C5C0F08B9A879D9838E9F /* Pods-StrayScanner.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StrayScanner.debug.xcconfig"; path = "Target Support Files/Pods-StrayScanner/Pods-StrayScanner.debug.xcconfig"; sourceTree = "<group>"; };
+		A33A563C2F0CDE9A0028B3B1 /* MeshEncoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeshEncoder.swift; sourceTree = "<group>"; };
+		A33A563F2F0D05070028B3B1 /* CountdownLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownLabel.swift; sourceTree = "<group>"; };
+		A33A56422F0D13DF0028B3B1 /* RecordSessionViewController+Mesh.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RecordSessionViewController+Mesh.swift"; sourceTree = "<group>"; };
 		A3744D9F2E6CE21700FC89AD /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		A3FFAA842DE79A2B002B99BD /* LocationEncoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationEncoder.swift; sourceTree = "<group>"; };
 		DBC054EDDA47FB8A717AA671 /* Pods_StrayScanner.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StrayScanner.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -185,6 +194,7 @@
 		38045D562561A6D20004F23C /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				A33A563F2F0D05070028B3B1 /* CountdownLabel.swift */,
 				38045D572561A7370004F23C /* SessionRow.swift */,
 				38045D592561AC000004F23C /* SessionList.swift */,
 				38E969CA2572608E00054CC4 /* NewSession.swift */,
@@ -221,6 +231,7 @@
 		385999BB25616F2B00F3F681 /* StrayScanner */ = {
 			isa = PBXGroup;
 			children = (
+				A33A563B2F0CDDC80028B3B1 /* Encoders */,
 				38694C6B26D2C66F00546EA1 /* Helpers */,
 				387B576825EA55AC00132903 /* CCode */,
 				38C17AE4259BCD16006B3FDA /* UI */,
@@ -251,14 +262,7 @@
 		38694C6B26D2C66F00546EA1 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				A3FFAA842DE79A2B002B99BD /* LocationEncoder.swift */,
-				38694C6C26D2C66F00546EA1 /* DatasetEncoder.swift */,
-				38694C6D26D2C66F00546EA1 /* ConfidenceEncoder.swift */,
-				38694C6E26D2C66F00546EA1 /* VideoEncoder.swift */,
-				38694C6F26D2C66F00546EA1 /* IMUEncoder.swift */,
 				38694C7026D2C66F00546EA1 /* CameraRenderer.swift */,
-				38694C7126D2C66F00546EA1 /* OdometryEncoder.swift */,
-				38694C7226D2C66F00546EA1 /* DepthEncoder.swift */,
 				38694C7326D2C66F00546EA1 /* AppDaemon.swift */,
 			);
 			path = Helpers;
@@ -297,6 +301,7 @@
 			isa = PBXGroup;
 			children = (
 				38FB730E2572A9FA007D9CB0 /* RecordSessionViewController.swift */,
+				A33A56422F0D13DF0028B3B1 /* RecordSessionViewController+Mesh.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -316,6 +321,21 @@
 				DBC054EDDA47FB8A717AA671 /* Pods_StrayScanner.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		A33A563B2F0CDDC80028B3B1 /* Encoders */ = {
+			isa = PBXGroup;
+			children = (
+				38694C6C26D2C66F00546EA1 /* DatasetEncoder.swift */,
+				A33A563C2F0CDE9A0028B3B1 /* MeshEncoder.swift */,
+				A3FFAA842DE79A2B002B99BD /* LocationEncoder.swift */,
+				38694C6D26D2C66F00546EA1 /* ConfidenceEncoder.swift */,
+				38694C6E26D2C66F00546EA1 /* VideoEncoder.swift */,
+				38694C6F26D2C66F00546EA1 /* IMUEncoder.swift */,
+				38694C7126D2C66F00546EA1 /* OdometryEncoder.swift */,
+				38694C7226D2C66F00546EA1 /* DepthEncoder.swift */,
+			);
+			path = Encoders;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -486,6 +506,7 @@
 				38694C7826D2C66F00546EA1 /* VideoEncoder.swift in Sources */,
 				38045D582561A7370004F23C /* SessionRow.swift in Sources */,
 				38694C7426D2C66F00546EA1 /* DatasetEncoder.swift in Sources */,
+				A33A56402F0D050C0028B3B1 /* CountdownLabel.swift in Sources */,
 				3807420B27BBCE83003194C1 /* PngEncoder.mm in Sources */,
 				A3FFAA852DE79A2F002B99BD /* LocationEncoder.swift in Sources */,
 				38694C7C26D2C66F00546EA1 /* CameraRenderer.swift in Sources */,
@@ -496,7 +517,9 @@
 				38C17B23259D1C80006B3FDA /* SessionDetail.swift in Sources */,
 				385999C225616F2B00F3F681 /* Stray_Scanner.xcdatamodeld in Sources */,
 				38045D5A2561AC000004F23C /* SessionList.swift in Sources */,
+				A33A56442F0D13E60028B3B1 /* RecordSessionViewController+Mesh.swift in Sources */,
 				38694C8226D2C66F00546EA1 /* AppDaemon.swift in Sources */,
+				A33A563D2F0CDE9C0028B3B1 /* MeshEncoder.swift in Sources */,
 				38694C7626D2C66F00546EA1 /* ConfidenceEncoder.swift in Sources */,
 				386E277825991163007D023B /* RecordButton.swift in Sources */,
 				385999BF25616F2B00F3F681 /* SceneDelegate.swift in Sources */,
@@ -518,6 +541,7 @@
 				38694C7926D2C66F00546EA1 /* VideoEncoder.swift in Sources */,
 				3863FE6325FCBB0E00C1DA4F /* SessionRow.swift in Sources */,
 				38694C7526D2C66F00546EA1 /* DatasetEncoder.swift in Sources */,
+				A33A56412F0D050C0028B3B1 /* CountdownLabel.swift in Sources */,
 				38694C7D26D2C66F00546EA1 /* CameraRenderer.swift in Sources */,
 				A3FFAA862DE79A2F002B99BD /* LocationEncoder.swift in Sources */,
 				38694C7B26D2C66F00546EA1 /* IMUEncoder.swift in Sources */,
@@ -528,7 +552,9 @@
 				3863FE6825FCBB0E00C1DA4F /* Stray_Scanner.xcdatamodeld in Sources */,
 				3863FE6925FCBB0E00C1DA4F /* SessionList.swift in Sources */,
 				38694C8326D2C66F00546EA1 /* AppDaemon.swift in Sources */,
+				A33A56432F0D13E60028B3B1 /* RecordSessionViewController+Mesh.swift in Sources */,
 				38694C7726D2C66F00546EA1 /* ConfidenceEncoder.swift in Sources */,
+				A33A563E2F0CDE9C0028B3B1 /* MeshEncoder.swift in Sources */,
 				3863FE6A25FCBB0E00C1DA4F /* RecordButton.swift in Sources */,
 				3807421027BBD07D003194C1 /* PngEncoder.mm in Sources */,
 				3863FE6C25FCBB0E00C1DA4F /* SceneDelegate.swift in Sources */,
@@ -693,13 +719,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_ASSET_PATHS = "\"StrayScanner/Preview Content\"";
 				DEVELOPMENT_TEAM = UB6LB27Z2X;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = StrayScanner/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -725,13 +751,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_ASSET_PATHS = "\"StrayScanner/Preview Content\"";
 				DEVELOPMENT_TEAM = UB6LB27Z2X;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = StrayScanner/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

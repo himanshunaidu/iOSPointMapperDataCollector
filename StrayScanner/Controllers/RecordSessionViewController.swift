@@ -37,11 +37,14 @@ class RecordSessionViewController : UIViewController, ARSessionDelegate, CLLocat
     private let locationManager = CLLocationManager()
     private var renderer: CameraRenderer?
     private var updateLabelTimer: Timer?
+    private var countdownLabelTimer: Timer?
     private var startedRecording: Date?
+    private var startedMeshRecording: Date?
     private var dataContext: NSManagedObjectContext!
     private var datasetEncoder: DatasetEncoder?
     private let imuOperationQueue = OperationQueue()
     private var chosenFpsSetting: Int = 0
+    private var countdownSeconds: Int = 10 /// No countdown if mesh support is disabled.
     @IBOutlet private var rgbView: MetalView!
     @IBOutlet private var depthView: MetalView!
     @IBOutlet private var recordButton: RecordButton!
@@ -50,9 +53,15 @@ class RecordSessionViewController : UIViewController, ARSessionDelegate, CLLocat
     @IBOutlet weak var stackView: UIStackView!
     @IBOutlet weak var imageView: UIView!
     @IBOutlet weak var controlsView: UIView!
+    @IBOutlet weak var countdownLabel: CountdownLabel!
     var dismissFunction: Optional<() -> Void> = Optional.none
     
     var controlsPosition: ControlsPosition = ControlsPosition(rawValue: UserDefaults.standard.string(forKey: "controlsPosition") ?? ControlsPosition.bottomCenter.rawValue) ?? .bottomCenter
+    var meshSupport: Bool = UserDefaults.standard.bool(forKey: "meshSupport")
+    
+    /// Mesh-related properties
+    var meshBundle: MeshBundle?
+    let updateInterval: TimeInterval = 0.033 // 30 FPS
     
     func setDismissFunction(_ fn: Optional<() -> Void>) {
         self.dismissFunction = fn
@@ -68,6 +77,7 @@ class RecordSessionViewController : UIViewController, ARSessionDelegate, CLLocat
         self.renderer = CameraRenderer(rgbLayer: rgbView.layer, depthLayer: depthView.layer)
         
         self.arrangeUI()
+        self.checkCountdownRequired()
 
         depthView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(viewTapped)))
         rgbView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(viewTapped)))
@@ -90,6 +100,7 @@ class RecordSessionViewController : UIViewController, ARSessionDelegate, CLLocat
 
     override func viewWillDisappear(_ animated: Bool) {
         updateLabelTimer?.invalidate()
+        countdownLabelTimer?.invalidate()
         datasetEncoder = nil
     }
 
@@ -115,6 +126,14 @@ class RecordSessionViewController : UIViewController, ARSessionDelegate, CLLocat
             return
         }
     }
+    
+    private func checkCountdownRequired() {
+        if !meshSupport && ARWorldTrackingConfiguration.supportsSceneReconstruction(.mesh) {
+            countdownLabel.isHidden = true
+        } else {
+            countdownLabel.isHidden = false
+        }
+    }
 
     private func startSession() {
         let config = ARWorldTrackingConfiguration()
@@ -122,10 +141,22 @@ class RecordSessionViewController : UIViewController, ARSessionDelegate, CLLocat
         if !ARWorldTrackingConfiguration.isSupported || !ARWorldTrackingConfiguration.supportsFrameSemantics(.sceneDepth) {
             print("AR is not supported.")
             unsupported = true
-        } else {
-            config.frameSemantics.insert(.sceneDepth)
-            session.run(config)
+            return
         }
+        if meshSupport {
+            if !ARWorldTrackingConfiguration.supportsSceneReconstruction(.mesh) {
+                print("Mesh reconstruction is not supported.")
+                unsupported = true
+                return
+            }
+            if ARWorldTrackingConfiguration.supportsSceneReconstruction(.meshWithClassification) {
+                config.sceneReconstruction = .meshWithClassification
+            } else {
+                config.sceneReconstruction = .mesh
+            }
+        }
+        config.frameSemantics.insert(.sceneDepth)
+        session.run(config)
     }
     
     private func startRawIMU() {
@@ -278,7 +309,11 @@ class RecordSessionViewController : UIViewController, ARSessionDelegate, CLLocat
         }
         startRawIMU()
         startLocationUpdates()
-        datasetEncoder = DatasetEncoder(arConfiguration: arConfiguration!, fpsDivider: FpsDividers[chosenFpsSetting])
+        let meshEncoding = meshSupport && ARWorldTrackingConfiguration.supportsSceneReconstruction(.mesh)
+        datasetEncoder = DatasetEncoder(
+            arConfiguration: arConfiguration!, fpsDivider: FpsDividers[chosenFpsSetting],
+            meshEncoding: meshEncoding
+        )
         startRawIMU()
     }
 
@@ -288,8 +323,18 @@ class RecordSessionViewController : UIViewController, ARSessionDelegate, CLLocat
             return
         }
         startedRecording = nil
+        startedMeshRecording = nil
         updateLabelTimer?.invalidate()
         updateLabelTimer = nil
+        countdownLabelTimer?.invalidate()
+        countdownLabelTimer = nil
+        // Save Mesh if applicable
+        if meshSupport && ARWorldTrackingConfiguration.supportsSceneReconstruction(.mesh) {
+            print("Finalizing mesh saving...")
+            if let meshBundle = self.meshBundle {
+                datasetEncoder?.add(meshBundle: meshBundle)
+            }
+        }
         // Stop IMU updates
         stopRawIMU()
         datasetEncoder?.wrapUp()
@@ -301,11 +346,46 @@ class RecordSessionViewController : UIViewController, ARSessionDelegate, CLLocat
                     showError()
                 case .directoryCreationError:
                     showError()
+                case .meshEncodingError:
+                    showError()
             }
         } else {
             print("No dataset encoder. Something is wrong.")
         }
         self.dismissFunction?()
+    }
+    
+    private func startCountdown() {
+        if self.startedRecording == nil {
+            print("Not recording, no need for countdown.")
+            return
+        }
+        if self.countdownLabelTimer != nil {
+            print("Countdown timer is already running.")
+            return
+        }
+        if self.startedMeshRecording == nil {
+            self.startedMeshRecording = Date()
+        }
+        if meshSupport && ARWorldTrackingConfiguration.supportsSceneReconstruction(.mesh) {
+            countdownLabelTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
+                self.countdownTime()
+            }
+        }
+    }
+    
+    private func countdownTime() {
+        guard let started = self.startedMeshRecording else { return }
+        let seconds = Date().timeIntervalSince(started)
+        let roundSeconds: Int = Int(floor(seconds.truncatingRemainder(dividingBy: 60)))
+        let remaining = countdownSeconds - roundSeconds
+        if remaining >= 0 {
+            self.countdownLabel.text = String(format: "%02d", remaining)
+        } else {
+            /// Stop recording.
+            self.countdownLabel.text = "00"
+            self.toggleRecording(false)
+        }
     }
 
     private func saveRecording(_ started: Date, _ encoder: DatasetEncoder) {
@@ -374,6 +454,29 @@ class RecordSessionViewController : UIViewController, ARSessionDelegate, CLLocat
                 print("There is no video encoder. That can't be good.")
             }
         }
+    }
+    
+    func session(_ session: ARSession, didAdd anchors: [ARAnchor]) {
+        if startedRecording == nil {
+            return
+        }
+        startCountdown()
+        handleMeshAnchors(anchors, updateType: .add)
+    }
+    
+    func session(_ session: ARSession, didUpdate anchors: [ARAnchor]) {
+        if startedRecording == nil {
+            return
+        }
+        startCountdown()
+        handleMeshAnchors(anchors, updateType: .update)
+    }
+    
+    func session(_ session: ARSession, didRemove anchors: [ARAnchor]) {
+        if startedRecording == nil {
+            return
+        }
+        handleMeshAnchors(anchors, updateType: .remove)
     }
 
     private func setViewProperties() {

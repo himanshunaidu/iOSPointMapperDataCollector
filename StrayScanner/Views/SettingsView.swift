@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import ARKit
 
 struct SettingsView: View {
     @EnvironmentObject var settingsViewModel: SettingsViewModel
@@ -21,7 +22,6 @@ struct SettingsView: View {
                 Text("Settings").font(.title)
                     .fontWeight(.bold)
                 Group {
-                    bodyText("Global Settings for the app.")
 
                     heading("UI Settings")
                         
@@ -38,6 +38,31 @@ struct SettingsView: View {
                     }
                     
                     Spacer()
+                }
+                
+                Group {
+                    
+                    heading("Recording Settings")
+                    
+                    HStack {
+                        bodyText("Enable Mesh Support")
+                        
+                        Spacer()
+                        
+                        Toggle("", isOn: $settingsViewModel.meshSupport)
+                            .labelsHidden()
+                    }
+                    .disabled(!ARWorldTrackingConfiguration.supportsSceneReconstruction(.mesh))
+                    
+                    /// Warning Label
+                    if settingsViewModel.meshSupport {
+                        bodyText("""
+                            Mesh support increases battery usage.
+                            Session will be limited to 10 seconds of mesh recording.
+                            """)
+                            .foregroundColor(Color.red)
+                            .font(.caption2)
+                    }
                 }
             }.padding(.all, paddingLeftRight)
             }

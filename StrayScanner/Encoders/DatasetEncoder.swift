@@ -17,6 +17,7 @@ class DatasetEncoder {
         case allGood
         case videoEncodingError
         case directoryCreationError
+        case meshEncodingError
     }
     private let rgbEncoder: VideoEncoder
     private let depthEncoder: DepthEncoder
@@ -26,6 +27,7 @@ class DatasetEncoder {
     private let imuEncoder: IMUEncoder
     private let locationEncoder: LocationEncoder
     private let headingEncoder: HeadingEncoder
+    private let meshEncoder: MeshEncoder?
     private var lastFrame: ARFrame?
     private var dispatchGroup = DispatchGroup()
     private var currentFrame: Int = -1
@@ -39,6 +41,7 @@ class DatasetEncoder {
     public let imuPath: URL
     public let locationPath: URL
     public let headingPath: URL
+    public let meshFilePath: URL?
     public var status = Status.allGood
     private let queue: DispatchQueue
     
@@ -48,7 +51,7 @@ class DatasetEncoder {
     private var lastLocationTimestamp: Date?
     private var lastHeadingTimestamp: Date?
 
-    init(arConfiguration: ARWorldTrackingConfiguration, fpsDivider: Int = 1) {
+    init(arConfiguration: ARWorldTrackingConfiguration, fpsDivider: Int = 1, meshEncoding: Bool = false) {
         self.frameInterval = fpsDivider
         self.queue = DispatchQueue(label: "encoderQueue")
         
@@ -72,6 +75,8 @@ class DatasetEncoder {
         self.locationEncoder = LocationEncoder(url: self.locationPath)
         self.headingPath = datasetDirectory.appendingPathComponent("heading.csv", isDirectory: false)
         self.headingEncoder = HeadingEncoder(url: self.headingPath)
+        self.meshFilePath = meshEncoding ? datasetDirectory.appendingPathComponent("mesh", isDirectory: true) : nil
+        self.meshEncoder = meshEncoding ? MeshEncoder(outDirectory: self.meshFilePath!) : nil
     }
 
     func add(frame: ARFrame) {
@@ -99,6 +104,11 @@ class DatasetEncoder {
             self.dispatchGroup.leave()
         }
         savedFrames = savedFrames + 1
+    }
+    
+    func add(meshBundle: MeshBundle) {
+        print("Saving mesh with \(meshBundle.faceCount) vertices.")
+        meshEncoder?.save(meshBundle: meshBundle)
     }
     
    func addRawAccelerometer(data: CMAccelerometerData) {
@@ -167,6 +177,15 @@ class DatasetEncoder {
             case .encodingError:
                 status = .videoEncodingError
                 print("Something went wrong encoding confidence values.")
+        }
+        if let meshEncoder = self.meshEncoder  {
+            switch meshEncoder.status {
+            case .ok:
+                status = .allGood
+            case .fileCreationError,.encodingError:
+                status = .meshEncodingError
+                print("Something went wrong encoding mesh.")
+            }
         }
     }
 
