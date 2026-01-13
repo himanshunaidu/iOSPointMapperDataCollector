@@ -17,6 +17,10 @@ enum MeshUpdateType {
 
 extension RecordSessionViewController {
     func handleMeshAnchors(_ anchors: [ARAnchor], updateType: MeshUpdateType) {
+        if meshBundle == nil {
+            initializeMeshBundle()
+        }
+        
         /// Throttle updates per anchor
         if Date().timeIntervalSince1970 - (meshBundle?.lastUpdated ?? 0) < updateInterval { return }
         let meshAnchors = anchors.compactMap { $0 as? ARMeshAnchor }
@@ -29,32 +33,23 @@ extension RecordSessionViewController {
             let geometry = meshAnchor.geometry
 
             let faces = geometry.faces
-            let classifications = geometry.classification
             
             let transform = meshAnchor.transform
 
-            if let classifications = classifications {
-                for index in 0..<faces.count {
-                    /// Each face is a triangle (3 indices)
-                    let face = faces[index]
-                    let classificationAddress = classifications.buffer.contents().advanced(by: classifications.offset + (classifications.stride * Int(index)))
-                    let classificationValue = Int(classificationAddress.assumingMemoryBound(to: UInt8.self).pointee)
-                    let classification = ARMeshClassification(rawValue: classificationValue) ?? .none
-                    
-                    // We're interested in floor-like horizontal surfaces
-                    guard classification == .floor else { continue }
+            for index in 0..<faces.count {
+                /// Each face is a triangle (3 indices)
+                let face = faces[index]
 
-                    let v0 = worldVertex(at: Int(face[0]), geometry: geometry, transform: transform)
-                    let v1 = worldVertex(at: Int(face[1]), geometry: geometry, transform: transform)
-                    let v2 = worldVertex(at: Int(face[2]), geometry: geometry, transform: transform)
-                    
-                    let edge1 = v1 - v0
-                    let edge2 = v2 - v0
-                    let normal = normalize(cross(edge1, edge2))
-                    
-                    triangles.append((v0, v1, v2))
-                    triangleNormals.append(normal)
-                }
+                let v0 = worldVertex(at: Int(face[0]), geometry: geometry, transform: transform)
+                let v1 = worldVertex(at: Int(face[1]), geometry: geometry, transform: transform)
+                let v2 = worldVertex(at: Int(face[2]), geometry: geometry, transform: transform)
+                
+                let edge1 = v1 - v0
+                let edge2 = v2 - v0
+                let normal = normalize(cross(edge1, edge2))
+                
+                triangles.append((v0, v1, v2))
+                triangleNormals.append(normal)
             }
         }
         /// Step 2: Compute mean normal
@@ -123,7 +118,7 @@ extension RecordSessionViewController {
             return nil
         }
 
-        var material = UnlitMaterial(color: color.withAlphaComponent(CGFloat(opacity)))
+        let material = UnlitMaterial(color: color.withAlphaComponent(CGFloat(opacity)))
         let entity = ModelEntity(mesh: mesh, materials: [material])
         return entity
     }

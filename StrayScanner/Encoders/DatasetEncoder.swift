@@ -107,6 +107,7 @@ class DatasetEncoder {
     }
     
     func add(meshBundle: MeshBundle) {
+        print("Saving mesh with \(meshBundle.faceCount) vertices.")
         meshEncoder?.save(meshBundle: meshBundle)
     }
     

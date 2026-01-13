@@ -330,6 +330,7 @@ class RecordSessionViewController : UIViewController, ARSessionDelegate, CLLocat
         countdownLabelTimer = nil
         // Save Mesh if applicable
         if meshSupport && ARWorldTrackingConfiguration.supportsSceneReconstruction(.mesh) {
+            print("Finalizing mesh saving...")
             if let meshBundle = self.meshBundle {
                 datasetEncoder?.add(meshBundle: meshBundle)
             }

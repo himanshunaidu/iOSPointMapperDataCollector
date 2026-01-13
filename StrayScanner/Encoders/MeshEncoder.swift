@@ -57,6 +57,7 @@ class MeshEncoder {
     }
 
     func save(meshBundle: MeshBundle, fileName: String = "mesh") {
+        print("Saving mesh to PLY file: \(fileName).ply")
         var ply: String
         
         let fullEntity = meshBundle.fullEntity
